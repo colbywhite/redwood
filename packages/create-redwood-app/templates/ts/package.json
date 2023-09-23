@@ -20,5 +20,8 @@
   "prisma": {
     "seed": "yarn rw exec seed"
   },
+  "scripts": {
+    "dev": "redwood dev --fwd=\"--no-open\""
+  },
   "packageManager": "yarn@3.6.3"
 }

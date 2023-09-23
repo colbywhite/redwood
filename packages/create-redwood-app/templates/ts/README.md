@@ -2,6 +2,8 @@
 
 Welcome to [RedwoodJS](https://redwoodjs.com)!
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/colbywhite/redwood/tree/stackblitz/packages/create-redwood-app/templates/ts)
+
 > **Prerequisites**
 >
 > - Redwood requires [Node.js](https://nodejs.org/en/) (=18.x) and [Yarn](https://yarnpkg.com/) (>=1.15)
