@@ -1,0 +1,12 @@
+{
+  "title": "Create Redwood App Typescript Template",
+  "iconUrl": "https://redwoodjs.com/favicon.png",
+  "tags": [
+    "react",
+    "redwoodjs",
+    "redwood",
+    "prisma",
+    "typescript"
+  ],
+  "published": false
+}
