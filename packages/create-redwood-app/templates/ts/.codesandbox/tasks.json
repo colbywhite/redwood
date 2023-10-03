@@ -6,7 +6,7 @@
   "tasks": {
     "dev": {
       "name": "yarn rw dev",
-      "command": "yarn rw dev --fwd=\"--allowed-hosts all\"",
+      "command": "yarn rw dev --fwd=\"--allowed-hosts all --no-open\"",
       "runAtStart": true,
       "preview": {
         "port": 8910
