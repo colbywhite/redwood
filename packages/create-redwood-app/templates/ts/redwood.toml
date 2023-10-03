@@ -15,7 +15,5 @@
   ]
 [api]
   port = 8911
-[browser]
-  open = true
 [notifications]
   versionUpdates = ["latest"]
