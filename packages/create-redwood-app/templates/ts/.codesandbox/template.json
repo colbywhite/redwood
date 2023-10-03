@@ -3,6 +3,7 @@
   "iconUrl": "https://redwoodjs.com/favicon.png",
   "tags": [
     "react",
+    "graphql",
     "redwoodjs",
     "redwood",
     "prisma",
