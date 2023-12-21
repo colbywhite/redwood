@@ -67,6 +67,8 @@ import { getConfig } from '@redwoodjs/project-config'
 import { generatePrismaClient } from '../../lib/generatePrismaClient'
 import { handler } from '../dev'
 
+const VITE_ROOT_CMD = 'yarn cross-env NODE_ENV=development vite';
+
 describe('yarn rw dev', () => {
   afterEach(() => {
     jest.clearAllMocks()
@@ -100,9 +102,7 @@ describe('yarn rw dev', () => {
     const generateCommand = find(concurrentlyArgs, { name: 'gen' })
 
     // Uses absolute path, so not doing a snapshot
-    expect(webCommand.command).toContain(
-      'yarn cross-env NODE_ENV=development rw-vite-dev'
-    )
+    expect(webCommand.command.trim()).toEqual(VITE_ROOT_CMD)
 
     expect(apiCommand.command).toMatchInlineSnapshot(
       `"yarn cross-env NODE_ENV=development NODE_OPTIONS="--enable-source-maps" yarn nodemon --quiet --watch "/mocked/project/redwood.toml" --exec "yarn rw-api-server-watch --port 8911 --debug-port 18911 | rw-log-formatter""`
@@ -207,7 +207,7 @@ describe('yarn rw dev', () => {
     expect(apiCommand.command).not.toContain('--debug-port')
   })
 
-  it('Will run vite, via rw-vite-dev bin if config has bundler set to Vite', async () => {
+  it('Will run vite if config has bundler set to Vite', async () => {
     getConfig.mockReturnValue({
       web: {
         port: 8910,
@@ -231,8 +231,34 @@ describe('yarn rw dev', () => {
 
     const webCommand = find(concurrentlyArgs, { name: 'web' })
 
-    expect(webCommand.command).toContain(
-      'yarn cross-env NODE_ENV=development rw-vite-dev'
-    )
+    expect(webCommand.command.trim()).toEqual(VITE_ROOT_CMD)
+  })
+
+  it('Will forward options to vite if config has bundler set to Vite', async () => {
+    getConfig.mockReturnValue({
+      web: {
+        port: 8910,
+        bundler: 'vite', // <-- enable vite mode
+      },
+      api: {
+        port: 8911,
+      },
+      experimental: {
+        streamingSsr: {
+          enabled: false,
+        },
+      },
+    })
+    const forwardOption = '--no-open'
+    await handler({
+      side: ['web'],
+      forward: forwardOption,
+    })
+
+    const concurrentlyArgs = concurrently.mock.lastCall[0]
+
+    const webCommand = find(concurrentlyArgs, { name: 'web' })
+
+    expect(webCommand.command).toEqual(`${VITE_ROOT_CMD} ${forwardOption}`)
   })
 })

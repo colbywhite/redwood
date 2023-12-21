@@ -154,8 +154,7 @@ export const handler = async ({
   // Written this way to make it easier to read
 
   // 1. default: Vite (SPA)
-  let webCommand = `yarn cross-env NODE_ENV=development rw-vite-dev ${forward}`
-
+  let webCommand = `yarn cross-env NODE_ENV=development vite ${forward}`
   // 2. Vite with SSR
   if (streamingSsrEnabled) {
     webCommand = `yarn cross-env NODE_ENV=development rw-dev-fe ${forward}`
